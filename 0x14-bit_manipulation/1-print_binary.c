@@ -16,11 +16,11 @@ void print_binary(unsigned long int n)
 		if (now & 1)
 		{
 			_putchar('1');
-			now++;
+			amount++;
 		}
-		else if (now)
+		else if (amount)
 			_putchar('0');
 	}
-	if (!now)
+	if (!amount)
 		_putchar('0');
 }
