@@ -18,8 +18,9 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	{
 		now = extra >> l;
 		if (now & 1)
-			now++;
+			amount++;
 	}
 
-	return (now);
+	return (amount);
+	
 }
