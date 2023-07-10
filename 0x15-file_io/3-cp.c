@@ -39,8 +39,8 @@ void close_file(int pd)
 
 	if (u == -1)
 	{
-		dprintf(STDERR_FILENO, " Error: Can't close pd %d\n", pd);
-		extit(100);
+		dprintf(STDERR_FILENO, "Error: Can't close pd %d\n", pd);
+		exit(100);
 	}
 }
 
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_where file_dest\n");
 		exit(97);
 	}
 
@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 			exit(98);
 		}
 
-		m = write(where, buffer, p)
+		m = write(where, buffer, p);
 			if (where == -1 || m == -1)
 			{
 				dprintf(STDERR_FILENO,
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 
 	free(buffer);
 	close_file(where);
-	close_file(where);
+	close_file(dest);
 
 	return (0);
 }
