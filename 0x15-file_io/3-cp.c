@@ -52,22 +52,22 @@ void close_file(int fd)
  */
 int main(int argc, char *argv[])
 {
-	int where, dest, p, m;
+	int from, to, p, m;
 	char *buffer;
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp file_where file_dest\n");
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
 	buffer = create_buffer(argv[2]);
-	where = open(argv[1], O_RDONLY);
-	p = read(where, buffer, 1024);
-	dest = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	from = open(argv[1], O_RDONLY);
+	p = read(from, buffer, 1024);
+	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
-		if (where == -1 || p == -1)
+		if (from == -1 || p == -1)
 		{
 			dprintf(STDERR_FILENO,
 					"Error: Can't read from file %s\n", argv[1]);
@@ -75,8 +75,8 @@ int main(int argc, char *argv[])
 			exit(98);
 		}
 
-		m = write(dest, buffer, p);
-			if (dest == -1 || m == -1)
+		m = write(to, buffer, p);
+			if (to == -1 || m == -1)
 			{
 				dprintf(STDERR_FILENO,
 						"Error: Can't write to %s\n", argv[2]);
@@ -84,14 +84,14 @@ int main(int argc, char *argv[])
 				exit(99);
 			}
 
-		p = read(where, buffer, 1024);
-		dest = open(argv[2], O_WRONLY | O_APPEND);
+		p = read(from, buffer, 1024);
+		to = open(argv[2], O_WRONLY | O_APPEND);
 
 	} while (p > 0);
 
 	free(buffer);
-	close_file(where);
-	close_file(dest);
+	close_file(from);
+	close_file(to);
 
 	return (0);
 }
