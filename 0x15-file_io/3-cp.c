@@ -75,8 +75,8 @@ int main(int argc, char *argv[])
 			exit(98);
 		}
 
-		m = write(where, buffer, p);
-			if (where == -1 || m == -1)
+		m = write(dest, buffer, p);
+			if (dest == -1 || m == -1)
 			{
 				dprintf(STDERR_FILENO,
 						"Error: Can't write to %s\n", argv[2]);
